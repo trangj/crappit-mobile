@@ -15,17 +15,20 @@ import { User } from "../../types/entities/user";
 type ProfileHeaderProps = {
 	profile: User;
 	translateY: SharedValue<number>;
+	headerSize: number;
 };
 
-const HEADER_HEIGHT = 215;
-
-const ProfileHeader = ({ profile, translateY }: ProfileHeaderProps) => {
+const ProfileHeader = ({
+	profile,
+	translateY,
+	headerSize,
+}: ProfileHeaderProps) => {
 	const { theme } = useTheme();
 
 	const headerStyle = useAnimatedStyle(() => {
 		const moveY = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 60],
+			[-headerSize, -headerSize + 60],
 			[0, -60],
 			Extrapolate.CLAMP
 		);
@@ -36,7 +39,7 @@ const ProfileHeader = ({ profile, translateY }: ProfileHeaderProps) => {
 	const bannerStyle = useAnimatedStyle(() => {
 		const opacity = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT + 60, -HEADER_HEIGHT + 120],
+			[-headerSize + 60, -headerSize + 120],
 			[1, 0],
 			Extrapolate.CLAMP
 		);
@@ -47,7 +50,7 @@ const ProfileHeader = ({ profile, translateY }: ProfileHeaderProps) => {
 	const iconStyle = useAnimatedStyle(() => {
 		const opacity = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 30],
+			[-headerSize, -headerSize + 30],
 			[1, 0],
 			Extrapolate.CLAMP
 		);
@@ -58,7 +61,7 @@ const ProfileHeader = ({ profile, translateY }: ProfileHeaderProps) => {
 	const cardStyle = useAnimatedStyle(() => {
 		const moveY = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 215],
+			[-headerSize, -headerSize + 215],
 			[0, -215],
 			Extrapolate.CLAMP
 		);

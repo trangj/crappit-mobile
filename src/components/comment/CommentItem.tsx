@@ -6,7 +6,7 @@ import {
 	UIManager,
 	View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Comment } from "../../types/entities/comment";
 import Text from "../../ui/Text";
 import dayjs from "dayjs";
@@ -26,7 +26,7 @@ if (
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const CommentItem = ({ comment }: CommentItemProps) => {
+const CommentItem = forwardRef<any, CommentItemProps>(({ comment }, ref) => {
 	const { theme } = useTheme();
 	const [hideComments, setHideComments] = useState(false);
 	const navigation = useNavigation();
@@ -92,7 +92,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 							html: comment.is_deleted ? "<p>[deleted]</p>" : comment.content,
 						}}
 					/>
-					<CommentToolBar comment={comment} />
+					<CommentToolBar comment={comment} ref={ref} />
 					<View
 						style={{
 							borderLeftWidth: 1,
@@ -102,7 +102,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 					>
 						{comment.children
 							? comment.children.map((comment) => (
-									<CommentItem comment={comment} key={comment.id} />
+									<CommentItem comment={comment} key={comment.id} ref={ref} />
 							  ))
 							: null}
 					</View>
@@ -110,6 +110,6 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 			)}
 		</View>
 	);
-};
+});
 
 export default CommentItem;

@@ -191,6 +191,7 @@ const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
 									placeholder="Email"
 									textContentType="emailAddress"
 									autoCompleteType="email"
+									keyboardType="email-address"
 								/>
 								<TextFieldForm
 									onChangeText={handleChange("username")}

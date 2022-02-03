@@ -13,20 +13,23 @@ const RenderHTML = ({ source }: RNRenderHTMLProps) => {
 		() => ({
 			p: {
 				color: theme.colors.text,
-				margin: 0,
+				marginTop: 0,
+				marginBottom: theme.spacing.sm,
 			},
 			h5: {
-				margin: 0,
 				color: theme.colors.text,
 				fontSize: theme.textVariants.mdHeader.fontSize,
 			},
 			ul: {
-				margin: 0,
+				marginVertical: theme.spacing.xs,
 				color: theme.colors.text,
 			},
 			ol: {
-				margin: 0,
+				marginVertical: theme.spacing.xs,
 				color: theme.colors.text,
+			},
+			a: {
+				color: theme.colors.blue,
 			},
 		}),
 		[theme]

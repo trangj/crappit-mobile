@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { HomeStackParamList } from "../navigators/HomeStackNavigator";
-import Text from "../ui/Text";
 import { TabParamList } from "src/navigators/TabNavigator";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { RootStackParamList } from "../navigators/RootStackNavigator";
@@ -20,6 +19,7 @@ import { useWindowDimensions } from "react-native";
 import { useTheme } from "../context/ThemeState";
 import usePosts from "../hooks/post-query/usePosts";
 import TopicAbout from "../components/topic/TopicAbout";
+import LoadingScreen from "../components/util/LoadingScreen";
 
 export type TopicScreenProps = CompositeScreenProps<
 	NativeStackScreenProps<HomeStackParamList, "Topic">,
@@ -28,6 +28,8 @@ export type TopicScreenProps = CompositeScreenProps<
 		NativeStackScreenProps<RootStackParamList>
 	>
 >;
+
+const HEADER_SIZE = 265;
 
 const CustomTabBar = React.memo(({ translateY, ...props }: any) => {
 	const { theme } = useTheme();
@@ -95,6 +97,8 @@ const TopicScreen = ({ navigation, route }: TopicScreenProps) => {
 		translateY.value = e.contentOffset.y;
 	});
 
+	if (!topic || isTopicLoading || !posts || isLoading) return <LoadingScreen />;
+
 	const renderScene = ({ route }: { route: { key: string } }) => {
 		switch (route.key) {
 			case "posts":
@@ -109,18 +113,21 @@ const TopicScreen = ({ navigation, route }: TopicScreenProps) => {
 						refetch={refetch}
 						sortParam={sortParam}
 						setSortParam={setSortParam}
+						headerSize={HEADER_SIZE}
 					/>
 				);
 			case "about":
 				return (
-					<TopicAbout scrollHandler={scrollHandler} navigation={navigation} />
+					<TopicAbout
+						translateY={translateY}
+						navigation={navigation}
+						topic={topic}
+					/>
 				);
 			default:
 				return null;
 		}
 	};
-
-	if (!topic || isTopicLoading) return <Text>Loading...</Text>;
 
 	return (
 		<>
@@ -128,6 +135,7 @@ const TopicScreen = ({ navigation, route }: TopicScreenProps) => {
 				topic={topic}
 				translateY={translateY}
 				navigation={navigation}
+				headerSize={HEADER_SIZE}
 			/>
 			<TabView
 				renderTabBar={(props) => (

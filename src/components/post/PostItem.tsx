@@ -6,6 +6,7 @@ import { useTheme } from "../../context/ThemeState";
 import { View } from "react-native";
 import PostToolBar from "./PostToolBar";
 import PostHeader from "./PostHeader";
+import Text from "../../ui/Text";
 import RenderHTML from "../../ui/RenderHTML";
 
 type PostItemProps = {
@@ -33,7 +34,11 @@ const PostItem = ({ post, navigation, ...props }: PostItemProps) => {
 						overflow: "hidden",
 					}}
 				>
-					<RenderHTML source={{ html: post.content }} />
+					{post.type === "link" ? (
+						<RenderHTML source={{ html: post.content }} />
+					) : (
+						<Text>{post.content.replace(/<\/?[^>]+(>|$)/g, " ")}</Text>
+					)}
 				</View>
 			) : null}
 			{/* // photo viewer goes here */}

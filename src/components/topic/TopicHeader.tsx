@@ -20,11 +20,15 @@ type TopicHeaderProps = {
 	topic: Topic;
 	translateY: SharedValue<number>;
 	navigation: TopicScreenProps["navigation"];
+	headerSize: number;
 };
 
-const HEADER_HEIGHT = 265;
-
-const TopicHeader = ({ navigation, topic, translateY }: TopicHeaderProps) => {
+const TopicHeader = ({
+	navigation,
+	topic,
+	translateY,
+	headerSize,
+}: TopicHeaderProps) => {
 	const { theme } = useTheme();
 	const { mutate } = useAddTopicFollow(topic);
 	const { user } = useUser();
@@ -32,7 +36,7 @@ const TopicHeader = ({ navigation, topic, translateY }: TopicHeaderProps) => {
 	const headerStyle = useAnimatedStyle(() => {
 		const moveY = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 60],
+			[-headerSize, -headerSize + 60],
 			[0, -60],
 			Extrapolate.CLAMP
 		);
@@ -43,7 +47,7 @@ const TopicHeader = ({ navigation, topic, translateY }: TopicHeaderProps) => {
 	const bannerStyle = useAnimatedStyle(() => {
 		const opacity = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT + 60, -HEADER_HEIGHT + 120],
+			[-headerSize + 60, -headerSize + 120],
 			[1, 0],
 			Extrapolate.CLAMP
 		);
@@ -54,7 +58,7 @@ const TopicHeader = ({ navigation, topic, translateY }: TopicHeaderProps) => {
 	const iconStyle = useAnimatedStyle(() => {
 		const opacity = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 30],
+			[-headerSize, -headerSize + 30],
 			[1, 0],
 			Extrapolate.CLAMP
 		);
@@ -65,7 +69,7 @@ const TopicHeader = ({ navigation, topic, translateY }: TopicHeaderProps) => {
 	const cardStyle = useAnimatedStyle(() => {
 		const moveY = interpolate(
 			translateY.value,
-			[-HEADER_HEIGHT, -HEADER_HEIGHT + 215],
+			[-headerSize, -headerSize + 215],
 			[0, -215],
 			Extrapolate.CLAMP
 		);
