@@ -1,6 +1,5 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import axios from "../../axiosConfig";
-import { Post } from "src/types/entities/post";
 import { Comment } from "src/types/entities/comment";
 import { Error } from "src/types/error";
 
@@ -17,11 +16,11 @@ async function addComment({ newComment }: { newComment: Comment; }) {
 	}
 }
 
-export default function useAddComment(post: Post) {
+export default function useAddComment(id: string, sortParam: string) {
 	const queryClient = useQueryClient();
 	return useMutation<Response, Error, any, any>(addComment, {
 		onSuccess: (res) => {
-			queryClient.setQueryData(["comments", post.id], (initialData: any) => [res.comment, ...initialData]);
+			queryClient.setQueryData(["comments", id, sortParam], (initialData: any) => [res.comment, ...initialData]);
 		},
 	});
 }

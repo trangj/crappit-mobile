@@ -89,7 +89,9 @@ const CommentItem = forwardRef<any, CommentItemProps>(({ comment }, ref) => {
 				<>
 					<RenderHTML
 						source={{
-							html: comment.is_deleted ? "<p>[deleted]</p>" : comment.content,
+							html: comment.is_deleted
+								? "<p>[deleted]</p>"
+								: "<p>" + comment.content + "</p>",
 						}}
 					/>
 					<CommentToolBar comment={comment} ref={ref} />
