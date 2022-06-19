@@ -1,12 +1,12 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text } from 'react-native';
+import React from 'react';
 
-const TopicsScreen = () => {
-	return (
-		<View>
-			<Text></Text>
-		</View>
-	);
-};
+function TopicsScreen() {
+  return (
+    <View>
+      <Text />
+    </View>
+  );
+}
 
 export default TopicsScreen;

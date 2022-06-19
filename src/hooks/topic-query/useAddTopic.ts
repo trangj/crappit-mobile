@@ -1,33 +1,33 @@
-import { useMutation } from "react-query";
-import axios from "../../axiosConfig";
-import { useHistory } from "react-router-dom";
-import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from 'react-query';
+import { useHistory } from 'react-router-dom';
+import { createStandaloneToast } from '@chakra-ui/toast';
+import axios from '../../axiosConfig';
 
 // TODO
 
 async function addTopic({ formData }: { formData: FormData; }) {
-	try {
-		const res = await axios.post(`/api/topic`, formData);
-		return res.data;
-	} catch (err) {
-		throw err.response.data;
-	}
+  try {
+    const res = await axios.post('/api/topic', formData);
+    return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
 }
 
 export default function useAddTopic() {
-	const history = useHistory();
-	return useMutation(addTopic, {
-		onSuccess: (res) => {
-			const { title } = res.topic;
-			history.push(`/t/${title}`);
-		},
-		onSettled: (data, error) => {
-			const res = data || error;
-			const toast = createStandaloneToast();
-			toast({
-				description: res.status.text,
-				status: res.status.severity,
-			});
-		},
-	});
+  const history = useHistory();
+  return useMutation(addTopic, {
+    onSuccess: (res) => {
+      const { title } = res.topic;
+      history.push(`/t/${title}`);
+    },
+    onSettled: (data, error) => {
+      const res = data || error;
+      const toast = createStandaloneToast();
+      toast({
+        description: res.status.text,
+        status: res.status.severity,
+      });
+    },
+  });
 }

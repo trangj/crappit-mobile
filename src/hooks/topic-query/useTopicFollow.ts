@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
-import { Error } from "src/types/error";
-import axios from "../../axiosConfig";
+import { useQuery } from 'react-query';
+import { Error } from 'src/types/error';
+import axios from '../../axiosConfig';
 import { useUser } from '../../context/UserState';
 
 type FollowedTopics = [{
@@ -10,15 +10,15 @@ type FollowedTopics = [{
 }];
 
 async function fetchTopicFollow() {
-    try {
-        const res = await axios.get(`/api/topics/followed_topics`);
-        return res.data.topics_followed;
-    } catch (err) {
-        throw err.response.data;
-    }
+  try {
+    const res = await axios.get('/api/topics/followed_topics');
+    return res.data.topics_followed;
+  } catch (err) {
+    throw err.response.data;
+  }
 }
 
 export default function useTopicFollow() {
-    const { user } = useUser();
-    return useQuery<FollowedTopics, Error>(["followed_topics"], fetchTopicFollow, { enabled: !!user });
+  const { user } = useUser();
+  return useQuery<FollowedTopics, Error>(['followed_topics'], fetchTopicFollow, { enabled: !!user });
 }
