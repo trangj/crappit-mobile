@@ -1,5 +1,5 @@
 import { Platform, RefreshControl, FlatList } from 'react-native';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Animated from 'react-native-reanimated';
 import PostItem from './PostItem';
 import { useTheme } from '../../context/ThemeState';
@@ -20,7 +20,7 @@ type PostsFlatListProps = {
   headerSize: number;
 };
 
-function PostsFlatList({
+const PostsFlatList = forwardRef(({
   scrollHandler,
   navigation,
   posts,
@@ -31,11 +31,12 @@ function PostsFlatList({
   sortParam,
   setSortParam,
   headerSize,
-}: PostsFlatListProps) {
+}: PostsFlatListProps, ref : any) => {
   const { theme } = useTheme();
 
   return (
     <AnimatedFlatList
+      ref={ref}
       indicatorStyle={theme.dark ? 'white' : 'black'}
       scrollEventThrottle={16}
       onScroll={scrollHandler}
@@ -54,7 +55,8 @@ function PostsFlatList({
           onRefresh={refetch}
           tintColor="white"
         />
-  )}
+      )}
+      refreshing={isLoading}
       contentInset={{ top: headerSize }}
       contentOffset={Platform.select({
         ios: {
@@ -67,6 +69,6 @@ function PostsFlatList({
       }}
     />
   );
-}
+});
 
 export default React.memo(PostsFlatList);

@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "server": "npm run server --prefix ../crappit/server",
-    "dev": "concurrently \"npm start\" \"npm run server\"",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider concurrently \"npm start\" \"npm run server\"",
     "lint": "npx eslint \"**/*.{ts,tsx}\""
   },
   "dependencies": {

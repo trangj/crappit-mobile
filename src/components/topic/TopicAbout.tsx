@@ -1,10 +1,6 @@
-import React from 'react';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-import { Pressable, View } from 'react-native';
+import React, { forwardRef } from 'react';
+import Animated from 'react-native-reanimated';
+import { Platform, Pressable, View } from 'react-native';
 import { Card } from '../../ui/Card';
 import { TopicScreenProps } from '../../screens/TopicScreen';
 import { Topic } from '../../types/entities/topic';
@@ -15,28 +11,33 @@ import Divider from '../../ui/Divider';
 import Heading from '../../ui/Heading';
 
 type TopicAboutProps = {
-  translateY: Animated.SharedValue<number>;
   navigation: TopicScreenProps['navigation'];
   topic: Topic | undefined;
+  scrollHandler: any,
+  headerSize: number
 };
 
-function TopicAbout({ translateY, topic, navigation }: TopicAboutProps) {
+const TopicAbout = forwardRef(({
+  topic, navigation, scrollHandler, headerSize,
+}: TopicAboutProps, ref : any) => {
   const { theme } = useTheme();
-  const scrollStyle = useAnimatedStyle(() => {
-    const moveY = interpolate(
-      translateY.value,
-      [-265, 0],
-      [0, -265],
-      Extrapolate.CLAMP,
-    );
-
-    return {
-      transform: [{ translateY: moveY }],
-    };
-  });
 
   return (
-    <Animated.ScrollView style={[{ top: 265 }, scrollStyle]}>
+    <Animated.ScrollView
+      onScroll={scrollHandler}
+      ref={ref}
+      scrollEventThrottle={16}
+      contentInset={{ top: headerSize }}
+      contentOffset={Platform.select({
+        ios: {
+          x: 0,
+          y: -headerSize,
+        },
+      })}
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+    >
       <Card
         style={{ padding: theme.spacing.md, marginBottom: theme.spacing.sm }}
       >
@@ -97,6 +98,6 @@ function TopicAbout({ translateY, topic, navigation }: TopicAboutProps) {
       </Card>
     </Animated.ScrollView>
   );
-}
+});
 
 export default TopicAbout;

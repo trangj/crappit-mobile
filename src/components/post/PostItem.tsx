@@ -37,7 +37,7 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
           {post.type === 'link' ? (
             <RenderHTML source={{ html: post.content }} />
           ) : (
-            <Text>{post.content.replace(/<\/?[^>]+(>|$)/g, ' ')}</Text>
+            <Text>{post.content.replace(/<\/?[^>]+>/gi, ' ')}</Text>
           )}
         </View>
       ) : null}

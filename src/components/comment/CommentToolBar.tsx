@@ -11,10 +11,11 @@ type CommentToolBarProps = {
 };
 
 const CommentToolBar = forwardRef<any, CommentToolBarProps>(
-  ({ comment }) => {
+  ({ comment }, ref) => {
     const { theme } = useTheme();
     return (
       <View
+        ref={ref}
         style={{
           display: 'flex',
           flexDirection: 'row',

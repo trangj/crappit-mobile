@@ -5,6 +5,8 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import Animated, {
   Extrapolate,
   interpolate,
+  scrollTo,
+  useAnimatedRef,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -91,19 +93,31 @@ function TopicScreen({ navigation, route }: TopicScreenProps) {
     { key: 'about', title: 'About' },
   ]);
 
+  // tab refs and scroll stuff
+  const postsRef = useAnimatedRef();
+  const aboutRef = useAnimatedRef();
+
   // animations
   const translateY = useSharedValue(0);
-  const scrollHandler = useAnimatedScrollHandler((e) => {
-    translateY.value = e.contentOffset.y;
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (e) => {
+      translateY.value = e.contentOffset.y;
+      if (index === 0) {
+        scrollTo(aboutRef, 0, e.contentOffset.y, false);
+      } else if (index === 1) {
+        scrollTo(postsRef, 0, e.contentOffset.y, false);
+      }
+    },
   });
 
-  if (!topic || isTopicLoading || !posts || isLoading) return <LoadingScreen />;
+  if (!topic || isTopicLoading) return <LoadingScreen />;
 
   const renderScene = ({ route }: { route: { key: string } }) => {
     switch (route.key) {
       case 'posts':
         return (
           <PostsFlatList
+            ref={postsRef}
             scrollHandler={scrollHandler}
             navigation={navigation}
             posts={posts}
@@ -119,9 +133,11 @@ function TopicScreen({ navigation, route }: TopicScreenProps) {
       case 'about':
         return (
           <TopicAbout
-            translateY={translateY}
+            ref={aboutRef}
+            scrollHandler={scrollHandler}
             navigation={navigation}
             topic={topic}
+            headerSize={HEADER_SIZE}
           />
         );
       default:
