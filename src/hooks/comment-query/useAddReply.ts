@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Comment } from 'src/types/entities/comment';
 import { Error } from 'src/types/error';
 import axios from '../../axiosConfig';
@@ -16,10 +16,11 @@ async function addReply({ commentId, reply }: { commentId: number, reply: Commen
   }
 }
 
-export default function useAddReply(comment: Comment) {
+export default function useAddReply(id: string, sortParam: string) {
+  const queryClient = useQueryClient();
   return useMutation<Response, Error, any, any>(addReply, {
-    onSuccess: (res) => {
-      comment.children = [res.comment, ...comment.children];
+    onSuccess: () => {
+      queryClient.invalidateQueries('comments', id, sortParam);
     },
   });
 }

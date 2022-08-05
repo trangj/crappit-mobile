@@ -24,7 +24,7 @@
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
     "expo": "~44.0.0",
-    "expo-linear-gradient": "~11.0.0",
+    "expo-linear-gradient": "~11.0.3",
     "expo-status-bar": "~1.2.0",
     "formik": "^2.2.9",
     "react": "17.0.1",

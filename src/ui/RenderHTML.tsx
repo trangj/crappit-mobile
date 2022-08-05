@@ -31,6 +31,15 @@ function RenderHTML({ source }: RNRenderHTMLProps) {
       a: {
         color: theme.colors.blue,
       },
+      pre: {
+        backgroundColor: theme.colors.grey,
+        padding: theme.spacing.sm,
+        borderRadius: theme.spacing.xs,
+      },
+      code: {
+        backgroundColor: theme.colors.grey,
+        color: theme.colors.text,
+      },
     }),
     [theme],
   );

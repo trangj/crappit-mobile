@@ -4,7 +4,7 @@ import axios from '../../axiosConfig';
 
 async function followTopic(topic: string) {
   try {
-    const res = await axios.post(`/api/topic/${topic}/followtopic`);
+    const res = await axios.post(`/api/topic/${topic}/follow_topic`);
     return res.data;
   } catch (err) {
     throw err.response.data;

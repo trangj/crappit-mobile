@@ -4,10 +4,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import HomeStackNavigator from './HomeStackNavigator';
 import TopicStackNavigator from './TopicStackNavigator';
 import { useTheme } from '../context/ThemeState';
+import NotificationStackNavigator from './NotificationStackNavigator';
 
 export type TabParamList = {
   HomeStackNavigator: undefined;
   AddPost: undefined;
+  NotificationStackNavigator: undefined;
   TopicStackNavigator: undefined;
 };
 
@@ -30,6 +32,9 @@ function TabNavigator() {
             case 'TopicStackNavigator':
               iconName = focused ? 'grid' : 'grid-outline';
               break;
+            case 'NotificationStackNavigator':
+              iconName = focused ? 'notifications' : 'notifications-outline';
+              break;
             default:
               break;
           }
@@ -40,6 +45,7 @@ function TabNavigator() {
       })}
     >
       <Tab.Screen name="HomeStackNavigator" component={HomeStackNavigator} />
+      <Tab.Screen name="TopicStackNavigator" component={TopicStackNavigator} />
       <Tab.Screen
         name="AddPost"
         listeners={({ navigation }) => ({
@@ -51,7 +57,7 @@ function TabNavigator() {
       >
         {() => null}
       </Tab.Screen>
-      <Tab.Screen name="TopicStackNavigator" component={TopicStackNavigator} />
+      <Tab.Screen name="NotificationStackNavigator" component={NotificationStackNavigator} />
     </Tab.Navigator>
   );
 }

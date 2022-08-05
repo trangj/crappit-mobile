@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native';
+import { Pressable, View, Image } from 'react-native';
 import React from 'react';
 import dayjs from 'dayjs';
 import { useTheme } from '../../context/ThemeState';
@@ -25,9 +25,27 @@ function PostHeader({ post, navigation }: PostHeaderProps) {
       <View
         style={{
           display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
           paddingBottom: theme.spacing.sm,
         }}
       >
+        {post.icon_image_url ? (
+          <Image
+            source={{ uri: post.icon_image_url }}
+            style={{ height: 28, width: 28, marginRight: theme.spacing.sm }}
+          />
+        ) : (
+          <View
+            style={{
+              height: 28,
+              width: 28,
+              backgroundColor: theme.colors.textAlt,
+              borderRadius: 9999,
+              marginRight: theme.spacing.sm,
+            }}
+          />
+        )}
         <View
           style={{
             display: 'flex',
@@ -49,6 +67,7 @@ function PostHeader({ post, navigation }: PostHeaderProps) {
               {post.author}
               {' '}
               &bull;
+              {' '}
               {dayjs(post.created_at).fromNow(true)}
             </Text>
           </Pressable>

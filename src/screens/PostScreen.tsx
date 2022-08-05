@@ -17,7 +17,8 @@ import { Card } from '../ui/Card';
 import CommentItem from '../components/comment/CommentItem';
 import { useTheme } from '../context/ThemeState';
 import SortBottomSheet from '../components/shared/SortBottomSheet';
-import AddCommentCard from '../components/post/AddCommentCard';
+import AddCommentCard from '../components/comment/AddCommentCard';
+import { AddCommentProvider } from '../components/comment/AddCommentContext';
 
 type PostScreenProps = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamList, 'Post'>,
@@ -37,13 +38,11 @@ function PostScreen({ navigation, route }: PostScreenProps) {
     data: comments,
     refetch,
   } = useComments(String(id), sortParam);
-  const [focused, setFocused] = useState(false);
-  const ref = useRef<RNTextInput>(null);
 
   if (isLoading || !data) return <Text>Loading...</Text>;
 
   return (
-    <>
+    <AddCommentProvider>
       <FlatList
         indicatorStyle={theme.dark ? 'white' : 'black'}
         data={comments as any}
@@ -54,7 +53,7 @@ function PostScreen({ navigation, route }: PostScreenProps) {
               paddingHorizontal: theme.spacing.md,
             }}
           >
-            <CommentItem comment={item} ref={ref} />
+            <CommentItem comment={item} />
           </Card>
         )}
         keyExtractor={(post) => String(post.id)}
@@ -66,19 +65,16 @@ function PostScreen({ navigation, route }: PostScreenProps) {
               sortParam={sortParam}
             />
           </>
-   )}
+        )}
         refreshControl={
           <RefreshControl refreshing={isCommentsLoading} onRefresh={refetch} />
         }
       />
       <AddCommentCard
-        ref={ref}
         post={data}
         sortParam={sortParam}
-        focused={focused}
-        setFocused={setFocused}
       />
-    </>
+    </AddCommentProvider>
   );
 }
 
