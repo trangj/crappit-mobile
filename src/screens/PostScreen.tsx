@@ -75,7 +75,6 @@ function PostScreen({ navigation, route }: PostScreenProps) {
       />
       <AddCommentCard
         post={data}
-        sortParam={sortParam}
       />
     </AddCommentProvider>
   );

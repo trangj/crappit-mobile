@@ -22,24 +22,21 @@ const schema = yup.object({
 
 type AddCommentCardProps = {
   post: Post;
-  sortParam: string;
 };
 
 interface FormValues {
   content: string;
 }
 
-function AddCommentCard({
-  sortParam, post,
-} : AddCommentCardProps) {
+function AddCommentCard({ post } : AddCommentCardProps) {
   const { user } = useUser();
   const { theme } = useTheme();
   const {
     addCommentRef: ref, type, setType, parentComment,
   } = useAddCommentContext();
   const [focused, setFocused] = useState(false);
-  const { mutateAsync: addCommentMutateAsync } = useAddComment(String(post.id), sortParam);
-  const { mutateAsync: addReplyMutateAsync } = useAddReply(String(post.id), sortParam);
+  const { mutateAsync: addCommentMutateAsync } = useAddComment(String(post.id));
+  const { mutateAsync: addReplyMutateAsync } = useAddReply(String(post.id));
 
   const handleSubmit = async (
     { content }: FormValues,

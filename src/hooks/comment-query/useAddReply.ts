@@ -24,11 +24,11 @@ async function addReply({ commentId, reply }: MutationParams) {
   }
 }
 
-export default function useAddReply(id: string, sortParam: string) {
+export default function useAddReply(id: string) {
   const queryClient = useQueryClient();
   return useMutation<MutateResponse, Error, MutationParams>(addReply, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['comments', id, sortParam]);
+      queryClient.invalidateQueries(['comments', id]);
     },
   });
 }
