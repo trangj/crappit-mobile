@@ -36,22 +36,30 @@ function SortSelect({
       >
         SORT BY
       </Text>
-      <View style={{ height: 1, backgroundColor: theme.colors.textAlt }} />
+      <View style={{
+        height: 1,
+        backgroundColor: theme.colors.textAlt,
+        marginBottom: theme.spacing.sm,
+      }}
+      />
       <MenuButton
         onPress={() => handleSortChange('hot')}
         active={sortParam === 'hot'}
+        icon="flame-outline"
       >
         Hot
       </MenuButton>
       <MenuButton
         onPress={() => handleSortChange('new')}
         active={sortParam === 'new'}
+        icon="star-outline"
       >
         New
       </MenuButton>
       <MenuButton
         onPress={() => handleSortChange('top')}
         active={sortParam === 'top'}
+        icon="bar-chart-outline"
       >
         Top
       </MenuButton>

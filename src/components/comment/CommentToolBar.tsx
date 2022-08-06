@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Comment } from '../../types/entities/comment';
 import { useTheme } from '../../context/ThemeState';
 import CommentVoting from './CommentVoting';
@@ -14,7 +14,7 @@ type CommentToolBarProps = {
 
 function CommentToolBar({ comment } : CommentToolBarProps) {
   const { theme } = useTheme();
-  return (
+  return !comment.is_deleted ? (
     <View
       style={{
         display: 'flex',
@@ -24,11 +24,11 @@ function CommentToolBar({ comment } : CommentToolBarProps) {
         paddingVertical: theme.spacing.sm,
       }}
     >
-      <CommentOptions />
+      <CommentOptions comment={comment} />
       <CommentReply comment={comment} />
       <CommentVoting comment={comment} />
     </View>
-  );
+  ) : null;
 }
 
 export default CommentToolBar;

@@ -1,23 +1,39 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Post } from 'src/types/entities/post';
+import { Error } from 'src/types/error';
+import { Response } from 'src/types/response';
 import axios from '../../axiosConfig';
 
-// TODO
+interface MutationResponse extends Response {
+  post: {
+    content: string,
+  };
+}
 
-async function updatePost({ postid, newPost }: { postid: number, newPost: { content: string; }; }) {
+interface MutationParams {
+  postid: number
+  newPost: {
+    content: string
+  }
+}
+
+async function updatePost({ postid, newPost }: MutationParams) {
   try {
     const res = await axios.put(`/api/post/${postid}`, newPost);
     return res.data;
-  } catch (err) {
+  } catch (err: any) {
     throw err.response.data;
   }
 }
 
-export default function useUpdatePost(setOpenEdit: (arg0: boolean) => void, post: Post) {
-  return useMutation(updatePost, {
+export default function useUpdatePost(post: Post) {
+  const queryClient = useQueryClient();
+  return useMutation<MutationResponse, Error, MutationParams>(updatePost, {
     onSuccess: (res) => {
-      post.content = res.post.content;
-      setOpenEdit(false);
+      queryClient.setQueryData(['post', String(post.id)], (initialData: any) => {
+        initialData.content = res.post.content;
+        return initialData;
+      });
     },
   });
 }

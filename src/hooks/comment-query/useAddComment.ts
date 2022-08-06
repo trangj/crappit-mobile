@@ -1,13 +1,21 @@
 import { useQueryClient, useMutation } from 'react-query';
 import { Comment } from 'src/types/entities/comment';
 import { Error } from 'src/types/error';
+import { Response } from 'src/types/response';
 import axios from '../../axiosConfig';
 
-interface Response {
+interface MutateResponse extends Response {
   comment: Comment;
 }
 
-async function addComment({ newComment }: { newComment: Comment; }) {
+interface MutateParams {
+  newComment: {
+    content: string,
+    postId: string
+  }
+}
+
+async function addComment({ newComment } : MutateParams) {
   try {
     const res = await axios.post('/api/comment', newComment);
     return res.data;
@@ -18,9 +26,15 @@ async function addComment({ newComment }: { newComment: Comment; }) {
 
 export default function useAddComment(id: string, sortParam: string) {
   const queryClient = useQueryClient();
-  return useMutation<Response, Error, any, any>(addComment, {
+  return useMutation<MutateResponse, Error, MutateParams>(addComment, {
     onSuccess: (res) => {
-      queryClient.setQueryData(['comments', id, sortParam], (initialData: any) => [res.comment, ...initialData]);
+      queryClient.setQueryData(['comments', id, sortParam], (initialData: any) => {
+        initialData.pages[0].comments = [res.comment, ...initialData.pages[0].comments];
+        return initialData;
+      });
+    },
+    onError: () => {
+      // toast.error(err.status.text);
     },
   });
 }

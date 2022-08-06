@@ -3,11 +3,11 @@ import { Topic } from 'src/types/entities/topic';
 import { Error } from 'src/types/error';
 import axios from '../../axiosConfig';
 
-async function fetchTopic(topic: string) {
+export async function fetchTopic(topic: string) {
   try {
     const res = await axios.get(`/api/topic/${topic}`);
     return res.data.topic;
-  } catch (err) {
+  } catch (err: any) {
     throw err.response.data;
   }
 }

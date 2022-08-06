@@ -3,11 +3,19 @@ import { Comment } from 'src/types/entities/comment';
 import { Error } from 'src/types/error';
 import axios from '../../axiosConfig';
 
-interface Response {
+interface MutateResponse extends Response {
   comment: Comment;
 }
 
-async function addReply({ commentId, reply }: { commentId: number, reply: Comment; }) {
+interface MutationParams {
+  commentId: number,
+  reply: {
+    content: string,
+    postId: number
+  }
+}
+
+async function addReply({ commentId, reply }: MutationParams) {
   try {
     const res = await axios.post(`/api/comment/${commentId}/reply`, reply);
     return res.data;
@@ -18,9 +26,9 @@ async function addReply({ commentId, reply }: { commentId: number, reply: Commen
 
 export default function useAddReply(id: string, sortParam: string) {
   const queryClient = useQueryClient();
-  return useMutation<Response, Error, any, any>(addReply, {
+  return useMutation<MutateResponse, Error, MutationParams>(addReply, {
     onSuccess: () => {
-      queryClient.invalidateQueries('comments', id, sortParam);
+      queryClient.invalidateQueries(['comments', id, sortParam]);
     },
   });
 }

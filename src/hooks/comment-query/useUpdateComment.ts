@@ -1,9 +1,24 @@
 import { useMutation } from 'react-query';
 import { Comment } from 'src/types/entities/comment';
+import { Error } from 'src/types/error';
+import { Response } from 'src/types/response';
 import axios from '../../axiosConfig';
 
-async function updateComment({ commentId, newComment }:
-  { commentId: number, newComment: { content: string; }; }) {
+interface MutationResponse extends Response {
+  comment: {
+    content: string,
+    updated_at: Date,
+  };
+}
+
+interface MutationParams {
+  commentId: number
+  newComment: {
+    content: string
+  }
+}
+
+async function updateComment({ commentId, newComment }: MutationParams) {
   try {
     const res = await axios.put(`/api/comment/${commentId}`, newComment);
     return res.data;
@@ -12,13 +27,12 @@ async function updateComment({ commentId, newComment }:
   }
 }
 
-export default function useUpdateComment(setOpenEdit: (arg0: boolean) => void, comment: Comment) {
-  return useMutation(updateComment, {
+export default function useUpdateComment(comment: Comment) {
+  return useMutation<MutationResponse, Error, MutationParams>(updateComment, {
     onSuccess: (res) => {
       comment.content = res.comment.content;
       comment.updated_at = res.comment.updated_at;
       comment.is_edited = true;
-      setOpenEdit(false);
     },
   });
 }

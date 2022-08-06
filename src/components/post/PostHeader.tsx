@@ -73,7 +73,7 @@ function PostHeader({ post, navigation }: PostHeaderProps) {
             </Text>
           </Pressable>
         </View>
-        <PostOptions />
+        <PostOptions post={post} />
       </View>
       <Heading size="sm" style={{ marginBottom: theme.spacing.xs }}>
         {post.title}

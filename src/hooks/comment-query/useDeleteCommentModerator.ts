@@ -4,34 +4,25 @@ import { Error } from 'src/types/error';
 import { Response } from 'src/types/response';
 import axios from '../../axiosConfig';
 
-interface MutateResponse extends Response {
-  status: {
-    text: string,
-    severity: string,
-  };
-}
-
 interface MutationParams {
   commentId: number
+  topic: string
 }
 
-async function deleteComment({ commentId }: MutationParams) {
+async function deleteCommentModerator({ commentId, topic }: MutationParams) {
   try {
-    const res = await axios.delete(`/api/comment/${commentId}`);
+    const res = await axios.delete(`/api/moderation/${topic}/comment/${commentId}`);
     return res.data;
   } catch (err: any) {
     throw err.response.data;
   }
 }
 
-export default function useDeleteComment(comment: Comment) {
+export default function useDeleteCommentModerator(comment: Comment) {
   const queryClient = useQueryClient();
-  return useMutation<MutateResponse, Error, MutationParams>(deleteComment, {
+  return useMutation<Response, Error, MutationParams>(deleteCommentModerator, {
     onSuccess: () => {
       queryClient.invalidateQueries(['comments', String(comment.post_id)]);
-    },
-    onError: () => {
-      // toast.error(err.status.text);
     },
   });
 }

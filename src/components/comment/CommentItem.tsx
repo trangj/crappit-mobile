@@ -9,6 +9,7 @@ import {
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { useNavigation } from '@react-navigation/native';
+import { HomeScreenNavigationProp } from 'src/screens/HomeScreen';
 import { Comment } from '../../types/entities/comment';
 import Text from '../../ui/Text';
 import RenderHTML from '../../ui/RenderHTML';
@@ -29,7 +30,7 @@ if (
 function CommentItem({ comment }: CommentItemProps) {
   const { theme } = useTheme();
   const [hideComments, setHideComments] = useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   return (
     <View

@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Post } from 'src/types/entities/post';
 import { View } from 'react-native';
+import { HomeScreenNavigationProp } from 'src/screens/HomeScreen';
 import { useUser } from '../../context/UserState';
 import useVoting from '../../hooks/post-query/useVoting';
 import Text from '../../ui/Text';
@@ -17,7 +18,7 @@ function Voting({ post }: Props) {
   const { user } = useUser();
   const { theme } = useTheme();
   const { mutate } = useVoting(post);
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleUpvote = () => {
     mutate({ id: post.id, vote: 'like' });

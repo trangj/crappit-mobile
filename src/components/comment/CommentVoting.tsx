@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Comment } from 'src/types/entities/comment';
 import { View } from 'react-native';
+import { HomeScreenNavigationProp } from 'src/screens/HomeScreen';
 import { useUser } from '../../context/UserState';
 import useCommentVoting from '../../hooks/comment-query/useCommentVoting';
 import Text from '../../ui/Text';
@@ -17,7 +18,7 @@ function CommentVoting({ comment }: Props) {
   const { user } = useUser();
   const { theme } = useTheme();
   const { mutate } = useCommentVoting(comment);
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleUpvote = () => {
     mutate({ commentId: comment.id, vote: 'like' });

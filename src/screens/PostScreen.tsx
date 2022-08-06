@@ -1,14 +1,13 @@
 import {
   FlatList,
   RefreshControl,
-  TextInput as RNTextInput,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { TabParamList } from 'src/navigators/TabNavigator';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { RootStackParamList } from 'src/navigators/RootStackNavigator';
-import Text from '../ui/Text';
+import LoadingScreen from 'src/components/util/LoadingScreen';
 import { HomeStackParamList } from '../navigators/HomeStackNavigator';
 import usePost from '../hooks/post-query/usePost';
 import PostCard from '../components/post/PostCard';
@@ -37,9 +36,11 @@ function PostScreen({ navigation, route }: PostScreenProps) {
     isLoading: isCommentsLoading,
     data: comments,
     refetch,
+    hasNextPage,
+    fetchNextPage,
   } = useComments(String(id), sortParam);
 
-  if (isLoading || !data) return <Text>Loading...</Text>;
+  if (isLoading || !data) return <LoadingScreen />;
 
   return (
     <AddCommentProvider>
@@ -56,7 +57,7 @@ function PostScreen({ navigation, route }: PostScreenProps) {
             <CommentItem comment={item} />
           </Card>
         )}
-        keyExtractor={(post) => String(post.id)}
+        keyExtractor={(comment) => String(comment.id)}
         ListHeaderComponent={(
           <>
             <PostCard post={data} navigation={navigation} />
@@ -69,6 +70,8 @@ function PostScreen({ navigation, route }: PostScreenProps) {
         refreshControl={
           <RefreshControl refreshing={isCommentsLoading} onRefresh={refetch} />
         }
+        refreshing={isCommentsLoading || !comments}
+        onEndReached={(hasNextPage as any) && fetchNextPage}
       />
       <AddCommentCard
         post={data}

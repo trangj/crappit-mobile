@@ -8,7 +8,7 @@ async function fetchPost(id: number) {
   try {
     const res = await axios.get(`/api/post/${id}`);
     return res.data.post;
-  } catch (err) {
+  } catch (err: any) {
     throw err.response.data;
   }
 }
