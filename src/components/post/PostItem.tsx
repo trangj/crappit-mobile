@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { PressableCard } from '../../ui/Card';
+import Embed from '../../ui/Embed';
+import { Card, PressableCard } from '../../ui/Card';
 import { Post } from '../../types/entities/post';
 import { HomeScreenNavigationProp } from '../../screens/HomeScreen';
 import { useTheme } from '../../context/ThemeState';
 import PostToolBar from './PostToolBar';
 import PostHeader from './PostHeader';
 import Text from '../../ui/Text';
-import RenderHTML from '../../ui/RenderHTML';
 
 type PostItemProps = {
   post: Post;
@@ -18,15 +18,13 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
   const { theme } = useTheme();
 
   return (
-    <PressableCard
-      onPress={() => navigation.navigate('Post', { id: post.id })}
-      style={{
-        marginBottom: theme.spacing.sm,
-      }}
-      {...props}
-    >
-      <PostHeader post={post} navigation={navigation} />
-      {post.content ? (
+    <>
+      <PressableCard
+        onPress={() => navigation.navigate('Post', { id: post.id })}
+        {...props}
+      >
+        <PostHeader post={post} navigation={navigation} />
+        {post.type === 'text' && (
         <View
           style={{
             paddingHorizontal: theme.spacing.md,
@@ -34,16 +32,22 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
             overflow: 'hidden',
           }}
         >
-          {post.type === 'link' ? (
-            <RenderHTML source={{ html: post.content }} />
-          ) : (
-            <Text>{post.content.replace(/<\/?[^>]+>/gi, ' ')}</Text>
-          )}
+          <Text>{post.content.replace(/<\/?[^>]+>/gi, ' ')}</Text>
         </View>
-      ) : null}
+        )}
+      </PressableCard>
+      {post.type === 'link' && (
+      <Embed url={post.content} />
+      )}
       {/* // photo viewer goes here */}
-      <PostToolBar post={post} />
-    </PressableCard>
+      <Card
+        style={{
+          marginBottom: theme.spacing.sm,
+        }}
+      >
+        <PostToolBar post={post} />
+      </Card>
+    </>
   );
 }
 

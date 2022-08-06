@@ -6,6 +6,7 @@ import Text from '../../ui/Text';
 import { Post } from '../../types/entities/post';
 import Heading from '../../ui/Heading';
 import { HomeScreenNavigationProp } from '../../screens/HomeScreen';
+import PostOptions from './PostOptions';
 
 type PostHeaderProps = {
   post: Post;
@@ -68,10 +69,11 @@ function PostHeader({ post, navigation }: PostHeaderProps) {
               {' '}
               &bull;
               {' '}
-              {dayjs(post.created_at).fromNow(true)}
+              {dayjs(post.created_at).fromNow()}
             </Text>
           </Pressable>
         </View>
+        <PostOptions />
       </View>
       <Heading size="sm" style={{ marginBottom: theme.spacing.xs }}>
         {post.title}

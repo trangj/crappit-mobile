@@ -2,10 +2,10 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeState';
 import Button from '../../ui/Button';
-import Text from '../../ui/Text';
 import { useAddCommentContext } from './AddCommentContext';
+import { Comment } from '../../types/entities/comment';
 
-function CommentReply({ comment }: any) {
+function CommentReply({ comment }: {comment: Comment}) {
   const { theme } = useTheme();
   const { addCommentRef: ref, setType, setParentComment } = useAddCommentContext();
 
@@ -23,22 +23,19 @@ function CommentReply({ comment }: any) {
           name="return-up-back-outline"
           size={20}
           color={theme.colors.textAlt}
-          style={{
-            paddingRight: theme.spacing.xs,
-          }}
         />
       )}
+      textStyle={{
+        alignSelf: 'center',
+        textAlign: 'center',
+        fontWeight: '600',
+        color: theme.colors.textAlt,
+        marginLeft: theme.spacing.xs,
+      }}
     >
-      <Text
-        style={{
-          alignSelf: 'center',
-          textAlign: 'center',
-          fontWeight: '600',
-          color: theme.colors.textAlt,
-        }}
-      >
-        Reply
-      </Text>
+      {!comment.parent_comment_id && (
+        'Reply'
+      )}
     </Button>
   );
 }

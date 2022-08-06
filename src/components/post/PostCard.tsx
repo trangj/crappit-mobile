@@ -1,12 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Card } from '../../ui/Card';
-import { Post } from '../../types/entities/post';
+import Embed from 'src/ui/Embed';
+import { Card } from 'src/ui/Card';
+import { Post, PostType } from 'src/types/entities/post';
+import RenderHTML from 'src/ui/RenderHTML';
 import { HomeScreenNavigationProp } from '../../screens/HomeScreen';
 import { useTheme } from '../../context/ThemeState';
 import PostToolBar from './PostToolBar';
 import PostHeader from './PostHeader';
-import RenderHTML from '../../ui/RenderHTML';
 
 type PostCardProps = {
   post: Post;
@@ -19,15 +20,18 @@ function PostCard({ post, navigation, ...props }: PostCardProps) {
   return (
     <Card {...props}>
       <PostHeader post={post} navigation={navigation} />
-      {post.content ? (
+      {post.type === 'text' && (
         <View
           style={{
             paddingHorizontal: theme.spacing.md,
           }}
         >
-          <RenderHTML source={{ html: post.content }} />
+          <RenderHTML source={{ html: post.type === PostType.TEXT ? post.content : `<a href=${post.content}>${post.content}</a>` }} />
         </View>
-      ) : null}
+      )}
+      {post.type === 'link' && (
+        <Embed url={post.content} />
+      )}
       {/* // photo viewer goes here */}
       <PostToolBar post={post} />
     </Card>

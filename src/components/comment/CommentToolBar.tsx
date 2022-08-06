@@ -4,6 +4,7 @@ import { Comment } from '../../types/entities/comment';
 import { useTheme } from '../../context/ThemeState';
 import CommentVoting from './CommentVoting';
 import CommentReply from './CommentReply';
+import CommentOptions from './CommentOptions';
 // import Button from "../../ui/Button";
 // import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -19,9 +20,11 @@ function CommentToolBar({ comment } : CommentToolBarProps) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        alignItems: 'center',
         paddingVertical: theme.spacing.sm,
       }}
     >
+      <CommentOptions />
       <CommentReply comment={comment} />
       <CommentVoting comment={comment} />
     </View>
