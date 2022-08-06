@@ -11,7 +11,7 @@ interface MutationParams {
   commentId: number,
   reply: {
     content: string,
-    postId: number
+    postId: string
   }
 }
 

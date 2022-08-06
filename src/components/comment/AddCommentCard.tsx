@@ -47,7 +47,7 @@ function AddCommentCard({
   ) => {
     const newComment = {
       content,
-      postId: post.id,
+      postId: String(post.id),
     };
     try {
       if (type === 'comment') {
@@ -55,12 +55,13 @@ function AddCommentCard({
           newComment,
         });
       } else if (type === 'reply') {
+        if (!parentComment) throw Error('No parent comment selected.');
         await addReplyMutateAsync({
           reply: newComment,
           commentId: parentComment.id,
         });
       }
-      ref.current.blur();
+      ref?.current?.blur();
       resetForm();
     } catch {
       //
