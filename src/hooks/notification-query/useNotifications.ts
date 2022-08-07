@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useInfiniteQuery } from 'react-query';
 import { Notification } from 'src/types/entities/notification';
 import { Error } from 'src/types/error';
@@ -26,9 +25,9 @@ export default function useNotifications() {
     ({ pageParam = 0 }) => fetchNotifications(pageParam),
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-      onError: (err) => {
-        toast.error(err.status.text);
-      },
+      // onError: (err) => {
+      //   toast.error(err.status.text);
+      // },
     },
   );
 }

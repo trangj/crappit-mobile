@@ -14,7 +14,7 @@ import Text from '../../ui/Text';
 import Button from '../../ui/Button';
 import useAddTopicFollow from '../../hooks/topic-query/useAddTopicFollow';
 import { useUser } from '../../context/UserState';
-import { TopicScreenProps } from '../../screens/TopicScreen';
+import { TopicScreenProps } from '../../screens/SharedScreens/TopicScreen';
 
 type TopicHeaderProps = {
   topic: Topic;

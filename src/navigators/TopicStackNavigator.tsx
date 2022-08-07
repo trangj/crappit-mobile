@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import PostScreen from '../screens/PostScreen';
-import TopicScreen from '../screens/TopicScreen';
+import PostScreen from '../screens/SharedScreens/PostScreen';
+import TopicScreen from '../screens/SharedScreens/TopicScreen';
 import TopicsScreen from '../screens/TopicsScreen';
 
 export type TopicStackParamList = {

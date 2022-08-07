@@ -7,12 +7,12 @@ import {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import Text from '../ui/Text';
-import { HomeStackParamList } from '../navigators/HomeStackNavigator';
-import useProfile from '../hooks/user-query/useProfile';
-import useProfilePosts from '../hooks/user-query/useProfilePosts';
-import ProfileHeader from '../components/profile/ProfileHeader';
-import PostsFlatList from '../components/post/PostsFlatList';
+import LoadingScreen from 'src/components/util/LoadingScreen';
+import { HomeStackParamList } from '../../navigators/HomeStackNavigator';
+import useProfile from '../../hooks/user-query/useProfile';
+import useProfilePosts from '../../hooks/user-query/useProfilePosts';
+import ProfileHeader from '../../components/profile/ProfileHeader';
+import PostsFlatList from '../../components/post/PostsFlatList';
 
 export type ProfileScreenProps = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamList, 'Profile'>,
@@ -43,7 +43,7 @@ function ProfileScreen({ navigation, route }: ProfileScreenProps) {
     translateY.value = e.contentOffset.y;
   });
 
-  if (isLoading || !posts || !data || isPostsLoading) return <Text>Loading...</Text>;
+  if (isLoading || !data) return <LoadingScreen />;
 
   return (
     <>
@@ -58,7 +58,7 @@ function ProfileScreen({ navigation, route }: ProfileScreenProps) {
         posts={posts}
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
-        isLoading={isLoading}
+        isLoading={isPostsLoading}
         refetch={refetch}
         sortParam={sortParam}
         setSortParam={setSortParam}

@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import PostScreen from '../screens/PostScreen';
+import PostScreen from '../screens/SharedScreens/PostScreen';
 import HomeScreen from '../screens/HomeScreen';
-import TopicScreen from '../screens/TopicScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import TopicScreen from '../screens/SharedScreens/TopicScreen';
+import ProfileScreen from '../screens/SharedScreens/ProfileScreen';
 
 export type HomeStackParamList = {
   Home: undefined;

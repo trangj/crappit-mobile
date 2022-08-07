@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { parseTextFromHtml } from 'src/helpers/parseText';
 import Embed from '../../ui/Embed';
 import { Card, PressableCard } from '../../ui/Card';
 import { Post } from '../../types/entities/post';
@@ -32,7 +33,7 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
             overflow: 'hidden',
           }}
         >
-          <Text>{post.content.replace(/<\/?[^>]+>/gi, ' ')}</Text>
+          <Text>{parseTextFromHtml(post.content)}</Text>
         </View>
         )}
       </PressableCard>

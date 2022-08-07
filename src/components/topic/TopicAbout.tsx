@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import Animated from 'react-native-reanimated';
 import { Platform, Pressable, View } from 'react-native';
 import { Card } from '../../ui/Card';
-import { TopicScreenProps } from '../../screens/TopicScreen';
+import { TopicScreenProps } from '../../screens/SharedScreens/TopicScreen';
 import { Topic } from '../../types/entities/topic';
 import Disclosure from '../../ui/Disclosure';
 import Text from '../../ui/Text';

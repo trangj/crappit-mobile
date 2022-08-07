@@ -10,6 +10,8 @@ const palette = {
   darkGrey: '#27272A',
   veryDarkGrey: '#0C0C0E',
   blue: '#3b82f6',
+  darkBlue: '#17232D',
+  lightBlue: '#e9f5fd',
 };
 
 export const theme = {
@@ -23,6 +25,7 @@ export const theme = {
     upvote: palette.orange,
     downvote: palette.indigo,
     textAlt: palette.grey,
+    highlight: palette.lightBlue,
 
     // React navigation theme
     primary: palette.lightGrey,
@@ -64,6 +67,7 @@ export const darkTheme = {
   colors: {
     ...theme.colors,
     grey: palette.darkGrey,
+    highlight: palette.darkBlue,
 
     // React navigation theme
     background: palette.veryDarkGrey,

@@ -8,16 +8,16 @@ import { TabParamList } from 'src/navigators/TabNavigator';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { RootStackParamList } from 'src/navigators/RootStackNavigator';
 import LoadingScreen from 'src/components/util/LoadingScreen';
-import { HomeStackParamList } from '../navigators/HomeStackNavigator';
-import usePost from '../hooks/post-query/usePost';
-import PostCard from '../components/post/PostCard';
-import useComments from '../hooks/comment-query/useComments';
-import { Card } from '../ui/Card';
-import CommentItem from '../components/comment/CommentItem';
-import { useTheme } from '../context/ThemeState';
-import SortBottomSheet from '../components/shared/SortBottomSheet';
-import AddCommentCard from '../components/comment/AddCommentCard';
-import { AddCommentProvider } from '../components/comment/AddCommentContext';
+import { HomeStackParamList } from '../../navigators/HomeStackNavigator';
+import usePost from '../../hooks/post-query/usePost';
+import PostCard from '../../components/post/PostCard';
+import useComments from '../../hooks/comment-query/useComments';
+import { Card } from '../../ui/Card';
+import CommentItem from '../../components/comment/CommentItem';
+import { useTheme } from '../../context/ThemeState';
+import SortBottomSheet from '../../components/shared/SortBottomSheet';
+import AddCommentCard from '../../components/comment/AddCommentCard';
+import { AddCommentProvider } from '../../components/comment/AddCommentContext';
 
 type PostScreenProps = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamList, 'Post'>,

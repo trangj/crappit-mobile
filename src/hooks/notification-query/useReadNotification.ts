@@ -1,5 +1,4 @@
 import { useQueryClient, useMutation } from 'react-query';
-import toast from 'react-hot-toast';
 import { Error } from 'src/types/error';
 import { Response } from 'src/types/response';
 import axios from '../../axiosConfig';
@@ -23,8 +22,8 @@ export default function useReadNotification() {
     onSuccess: () => {
       queryClient.invalidateQueries(['notifications']);
     },
-    onError: (err) => {
-      toast.error(err.status.text);
-    },
+    // onError: (err) => {
+    //   toast.error(err.status.text);
+    // },
   });
 }

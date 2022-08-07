@@ -13,15 +13,15 @@ import Animated, {
 } from 'react-native-reanimated';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { useWindowDimensions } from 'react-native';
-import { HomeStackParamList } from '../navigators/HomeStackNavigator';
-import { RootStackParamList } from '../navigators/RootStackNavigator';
-import useTopic from '../hooks/topic-query/useTopic';
-import TopicHeader from '../components/topic/TopicHeader';
-import PostsFlatList from '../components/post/PostsFlatList';
-import { useTheme } from '../context/ThemeState';
-import usePosts from '../hooks/post-query/usePosts';
-import TopicAbout from '../components/topic/TopicAbout';
-import LoadingScreen from '../components/util/LoadingScreen';
+import { HomeStackParamList } from '../../navigators/HomeStackNavigator';
+import { RootStackParamList } from '../../navigators/RootStackNavigator';
+import useTopic from '../../hooks/topic-query/useTopic';
+import TopicHeader from '../../components/topic/TopicHeader';
+import PostsFlatList from '../../components/post/PostsFlatList';
+import { useTheme } from '../../context/ThemeState';
+import usePosts from '../../hooks/post-query/usePosts';
+import TopicAbout from '../../components/topic/TopicAbout';
+import LoadingScreen from '../../components/util/LoadingScreen';
 
 export type TopicScreenProps = CompositeScreenProps<
   NativeStackScreenProps<HomeStackParamList, 'Topic'>,
