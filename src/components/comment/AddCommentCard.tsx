@@ -124,6 +124,8 @@ function AddCommentCard({ post } : AddCommentCardProps) {
                       style={{
                         height: 28,
                         width: 28,
+                        backgroundColor: theme.colors.textAlt,
+                        borderRadius: 9999,
                         marginRight: theme.spacing.sm,
                       }}
                     />

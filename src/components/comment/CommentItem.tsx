@@ -49,7 +49,13 @@ function CommentItem({ comment }: CommentItemProps) {
         {comment.avatar_image_url ? (
           <Image
             source={{ uri: comment.avatar_image_url }}
-            style={{ height: 28, width: 28, marginRight: theme.spacing.sm }}
+            style={{
+              height: 28,
+              width: 28,
+              backgroundColor: theme.colors.textAlt,
+              borderRadius: 9999,
+              marginRight: theme.spacing.sm,
+            }}
           />
         ) : (
           <View

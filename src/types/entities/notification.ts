@@ -7,4 +7,9 @@ export interface Notification {
   url: string,
   sent_at: Date,
   read_at: Date | null,
+  icon_url: string,
+  icon_name: string,
+  notification_type: {
+    type_name: string
+  }
 }

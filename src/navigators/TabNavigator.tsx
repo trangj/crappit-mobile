@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import useNotifications from 'src/hooks/notification-query/useNotifications';
+import { View } from 'react-native';
 import HomeStackNavigator from './HomeStackNavigator';
 import TopicStackNavigator from './TopicStackNavigator';
 import { useTheme } from '../context/ThemeState';
@@ -17,6 +19,13 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 function TabNavigator() {
   const { theme } = useTheme();
+  const { data } = useNotifications();
+
+  const hasReadAll = useMemo(
+    () => (data
+      ? data.pages[0].notifications.every((notification) => notification.read_at) : true),
+    [data],
+  );
 
   return (
     <Tab.Navigator
@@ -39,7 +48,20 @@ function TabNavigator() {
               break;
           }
           return (
-            <Ionicons name={iconName} size={size} color={theme.colors.text} />
+            <View style={{ position: 'relative' }}>
+              <Ionicons name={iconName} size={size} color={theme.colors.text} />
+              {!hasReadAll && route.name === 'NotificationStackNavigator' && (
+                <View style={{
+                  backgroundColor: theme.colors.upvote,
+                  height: 7,
+                  width: 7,
+                  borderRadius: 9999,
+                  position: 'absolute',
+                  right: 0,
+                }}
+                />
+              )}
+            </View>
           );
         },
       })}
