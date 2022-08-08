@@ -22,7 +22,7 @@ function MenuButton({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: theme.spacing.sm,
+        padding: theme.spacing.ms,
         backgroundColor: pressed ? theme.colors.background : undefined,
       })}
       {...props}

@@ -31,21 +31,21 @@ export default function useAddTopicFollow(topic: Topic) {
         initialData.number_of_followers += res.user_followed_id ? 1 : -1;
         return initialData;
       });
-      // queryClient.setQueryData(['followed_topics'], (initialData: any) => {
-      //   if (res.user_followed_id) {
-      //     initialData.topics_followed.push({
-      //       ...res.follow,
-      //       title: topic.title,
-      //       icon_image_url: topic.icon_image_url,
-      //       icon_image_name: topic.icon_image_name,
-      //     });
-      //   } else {
-      //     initialData.topics_followed = initialData.topics_followed.filter(
-      //       (i: any) => i.topic_id !== topic.id,
-      //     );
-      //   }
-      //   return initialData;
-      // });
+      queryClient.setQueryData(['followed_topics'], (initialData: any) => {
+        if (res.user_followed_id) {
+          initialData.topics_followed.push({
+            ...res.follow,
+            title: topic.title,
+            icon_image_url: topic.icon_image_url,
+            icon_image_name: topic.icon_image_name,
+          });
+        } else {
+          initialData.topics_followed = initialData.topics_followed.filter(
+            (i: any) => i.topic_id !== topic.id,
+          );
+        }
+        return initialData;
+      });
       // toast.success(res.status.text);
     },
   });

@@ -44,7 +44,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       onEndReached={(hasNextPage as any) && fetchNextPage}
       refreshControl={
         <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        }
+      }
     />
   );
 }
