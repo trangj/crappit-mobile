@@ -4,6 +4,7 @@ import Embed from 'src/ui/Embed';
 import { Card } from 'src/ui/Card';
 import { Post, PostType } from 'src/types/entities/post';
 import RenderHTML from 'src/ui/RenderHTML';
+import ImageViewer from 'src/ui/ImageViewer';
 import { HomeScreenNavigationProp } from '../../screens/HomeScreen';
 import { useTheme } from '../../context/ThemeState';
 import PostToolBar from './PostToolBar';
@@ -32,7 +33,9 @@ function PostCard({ post, navigation, ...props }: PostCardProps) {
       {post.type === 'link' && (
         <Embed url={post.content} />
       )}
-      {/* // photo viewer goes here */}
+      {post.type === 'photo' && (
+        <ImageViewer uri={post.image_url} />
+      )}
       <PostToolBar post={post} />
     </Card>
   );

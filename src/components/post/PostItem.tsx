@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { parseTextFromHtml } from 'src/helpers/parseText';
+import ImageViewer from 'src/ui/ImageViewer';
 import Embed from '../../ui/Embed';
 import { Card, PressableCard } from '../../ui/Card';
 import { Post } from '../../types/entities/post';
@@ -40,7 +41,9 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
       {post.type === 'link' && (
       <Embed url={post.content} />
       )}
-      {/* // photo viewer goes here */}
+      {post.type === 'photo' && (
+        <ImageViewer uri={post.image_url} />
+      )}
       <Card
         style={{
           marginBottom: theme.spacing.sm,

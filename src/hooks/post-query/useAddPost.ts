@@ -1,4 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMutation } from 'react-query';
+import { HomeScreenNavigationProp } from 'src/screens/HomeScreen';
 import { Error } from 'src/types/error';
 import axios from '../../axiosConfig';
 
@@ -22,10 +24,11 @@ async function addPost({ formData }: MutationParams) {
   }
 }
 
-export default function useAddPost(navigation: any) {
+export default function useAddPost() {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   return useMutation<MutationResponse, Error, MutationParams>(addPost, {
     onSuccess: (res) => {
-      navigation.navigate('Post', { postid: res.post.id });
+      navigation.navigate('Post', { id: res.post.id });
     },
   });
 }
