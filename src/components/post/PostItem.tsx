@@ -42,7 +42,7 @@ function PostItem({ post, navigation, ...props }: PostItemProps) {
       <Embed url={post.content} />
       )}
       {post.type === 'photo' && (
-        <ImageViewer uri={post.image_url} />
+        <ImageViewer uri={post.image_url} name={post.image_name} />
       )}
       <Card
         style={{

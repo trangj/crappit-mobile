@@ -58,7 +58,7 @@ function NotificationSettingsScreen() {
     <View>
       <Text
         style={{
-          paddingHorizontal: theme.spacing.ms,
+          padding: theme.spacing.ms,
           alignItems: 'center',
           color: theme.colors.textAlt,
           textTransform: 'uppercase',

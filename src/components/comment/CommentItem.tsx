@@ -102,7 +102,7 @@ function CommentItem({ comment }: CommentItemProps) {
               : `<p>${comment.content}</p>`,
           }}
         />
-        <CommentToolBar comment={comment} />
+        <CommentToolBar comment={comment} setHideComments={setHideComments} />
         <View
           style={{
             borderLeftWidth: 1,

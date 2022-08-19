@@ -3,10 +3,11 @@ import { Image, Pressable } from 'react-native';
 import ImageView from 'react-native-image-viewing';
 
 interface ImageViewerProps {
-  uri: string
+  uri: string,
+  name: string,
 }
 
-function ImageViewer({ uri } : ImageViewerProps) {
+function ImageViewer({ uri, name } : ImageViewerProps) {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -15,13 +16,13 @@ function ImageViewer({ uri } : ImageViewerProps) {
         onPress={() => setVisible(true)}
       >
         <Image
-          source={{ uri }}
+          source={{ uri: `https://crappit-development.imgix.net/${name}` }}
           style={{ height: 300, width: '100%' }}
           resizeMode="cover"
         />
       </Pressable>
       <ImageView
-        images={[{ uri }]}
+        images={[{ uri: `https://crappit-development.imgix.net/${name}` }]}
         imageIndex={0}
         visible={visible}
         onRequestClose={() => setVisible(false)}

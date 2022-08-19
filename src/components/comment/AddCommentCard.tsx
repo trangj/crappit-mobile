@@ -145,7 +145,9 @@ function AddCommentCard({ post } : AddCommentCardProps) {
                 border="rounded"
                 placeholder="Add a comment"
                 onPressOut={() => {
-                  setType('comment');
+                  if (!focused) {
+                    setType('comment');
+                  }
                 }}
                 onFocus={() => {
                   setFocused(true);

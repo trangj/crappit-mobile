@@ -34,7 +34,7 @@ function PostCard({ post, navigation, ...props }: PostCardProps) {
         <Embed url={post.content} />
       )}
       {post.type === 'photo' && (
-        <ImageViewer uri={post.image_url} />
+        <ImageViewer uri={post.image_url} name={post.image_name} />
       )}
       <PostToolBar post={post} />
     </Card>

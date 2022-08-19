@@ -10,9 +10,10 @@ import CommentOptions from './CommentOptions';
 
 type CommentToolBarProps = {
   comment: Comment;
+  setHideComments: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function CommentToolBar({ comment } : CommentToolBarProps) {
+function CommentToolBar({ comment, setHideComments } : CommentToolBarProps) {
   const { theme } = useTheme();
   return !comment.is_deleted ? (
     <View
@@ -24,7 +25,7 @@ function CommentToolBar({ comment } : CommentToolBarProps) {
         paddingVertical: theme.spacing.sm,
       }}
     >
-      <CommentOptions comment={comment} />
+      <CommentOptions comment={comment} setHideComments={setHideComments} />
       <CommentReply comment={comment} />
       <CommentVoting comment={comment} />
     </View>
